@@ -1,0 +1,22 @@
+body {
+  background-color: white;
+  color: black;
+}
+
+.dark-mode {
+  background-color: black;
+  color: white;
+}
+
+#toggle {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: right;
+  padding: 0px 10px 10px 0;
+  border: 2px solid;
+}
+
+h5 {
+  margin: 10px 0 5px 10px;
+}
