@@ -5,40 +5,33 @@ toggle.addEventListener("click", () => {
 });
 
 // Store questions, correct answer and the choices/options to be displayed
-// along with he question.
+// along with the question.
 let question_array = [
   {
-    question: "Is the Earth flat?",
-    answer: "false",
-    options: ["true", "fasle"],
+    question: "The capital of Australia is Sydney.",
+    answer: "False",
+    options: ["True", "False"],
     option_type: "radio",
     points: 1
   },
   {
-    question: "Is the Sun bigger than the Earth?",
-    answer: "false",
-    options: ["true", "fasle"],
+    question: "Earth's rotation causes day and night.",
+    answer: "True",
+    options: ["True", "False"],
     option_type: "radio",
     points: 1
   },
   {
-    question: "Does Saturn have rings?",
-    answer: "true",
-    options: ["true", "fasle"],
+    question: " Hydrogen gas is used to fill balloons.",
+    answer: "False",
+    options: ["True", "False"],
     option_type: "radio",
     points: 1
   },
   {
-    question: "Can squirrels fly?",
-    answer: "true",
-    options: ["true", "fasle"],
-    option_type: "radio",
-    points: 1
-  },
-  {
-    question: "How many legs does an elephant have?",
-    answer: "4",
-    options: [4, 7, 12],
+    question: "Which of the following Formula One driver is from Helsingborg,Sweden?",
+    answer: "Gunnar Nilsson",
+    options: ["Gunnar Nilsson", "Ronnie Peterson", "Marcus Ericsson"],
     option_type: "radio",
     points: 1
   },
@@ -50,25 +43,19 @@ let question_array = [
     points: 1
   },
   {
-    question: "Who is the president of USA?",
-    answer: "Joe Biden",
-    options: ["Steve Rogers", "Joe Biden", "Elon Musk"],
+    question: "Which US president won the Nobel Peace prize in 2009?",
+    answer: "Barack Obama",
+    options: ["Steve Rogers", "Joe Biden", "Barack Obama"],
     option_type: "radio",
     points: 1
   },
   {
-    question: "How many legs does elephants have? (Multiple choice)",
-    answer: ["4", "8 (If they are standing together)"],
-    options: ["4", "16", "8 (If they are standing together)"],
+    question:
+      "Which of the following countries have similar flags with stripes of blue and white?(Multiple choice)",
+    answer: ["Argentina", "El Salvador", "Nicaragua"],
+    options: ["Argentina", "Germany", "El Salvador", "Nicaragua", "Costa Rica"],
     option_type: "checkbox",
-    points: 2
-  },
-  {
-    question: "Which of the following are fishes?",
-    answer: ["Herring", "Salmon"],
-    options: ["Herring", "Screaming", "Salmon", "Lemons"],
-    option_type: "checkbox",
-    points: 2
+    points: 3
   }
 ];
 let total_points = 0;
@@ -83,6 +70,7 @@ function displayQuestions(question_number, question) {
   let question_element = document.createElement("h3");
   question_element.textContent = question_number + ". " + question;
   my_container.appendChild(question_element);
+  question_element.style.color = "cornflowerblue";
 }
 
 // Function to display radio buttons depending on the number of options
@@ -141,10 +129,6 @@ function arrayCompare(user_ans, correct_ans) {
     user_ans.length === correct_ans.length &&
     user_ans.join() === correct_ans.join();
   return cmp_status;
-  // return (
-  //   user_ans.length === correct_ans.length &&
-  //   user_ans.join() === correct_ans.join()
-  // );
 }
 
 // Print the total score and disable the 'Get Result' button
@@ -152,13 +136,15 @@ function arrayCompare(user_ans, correct_ans) {
 function save(total_points, score) {
   document.querySelector("#get_result").disabled = true;
   if (score < total_points / 2) {
+    my_message.innerHTML = "Your final score is " + score + " &#128128;";
     my_message.style.color = "red";
   } else if (score > total_points / 2 && score !== total_points) {
+    my_message.innerHTML = "Your final score is " + score + " &#128123;";
     my_message.style.color = "orange";
   } else {
+    my_message.innerHTML = "Your final score is " + score + " &#127942;";
     my_message.style.color = "green";
   }
-  my_message.innerHTML = "Your final score is " + score + "&#9786;";
 }
 // At the end, verify answers and print response.
 // Calculate the score only after the submit button is clicked.
@@ -168,8 +154,7 @@ get_result_button.addEventListener("click", () => {
     // check_box_ans is an array to store the multiple choice answers
     // This array is later compared with question_array.answer[]
     let check_box_ans = [];
-    // The group name for the radio buttons is 'hacked' to dynamically
-    // select each group. The groups are named after the question_array index (q_num)
+    // The group name for the radio buttons are named after the question_array index (q_num)
     let buttons = document.querySelectorAll("[name='" + q_num + "']");
     // Iterate through each radio button to verify the one that is checked.
     // q_num = question number and btn = number of radio buttons for that question.
@@ -179,7 +164,7 @@ get_result_button.addEventListener("click", () => {
       // Calculate score only for questions where an answer was selected
       if (buttons[btn].checked) {
         // console.log(buttons[btn]);
-        //if option_type is raadio
+        //if option_type is radio
         if (question_array[q_num].option_type === "radio") {
           if (buttons[btn].value === question_array[q_num].answer) {
             score = score + question_array[q_num].points;
@@ -189,7 +174,6 @@ get_result_button.addEventListener("click", () => {
         }
       }
     }
-
     // Compare if the user answer matches the correct answer
     if (arrayCompare(check_box_ans, question_array[q_num].answer)) {
       score = score + question_array[q_num].points;
@@ -199,7 +183,6 @@ get_result_button.addEventListener("click", () => {
   for (let q_num = 0; q_num < question_array.length; q_num++) {
     total_points = total_points + question_array[q_num].points;
   }
-
   // Save and calculate the score
   save(total_points, score);
 });

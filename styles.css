@@ -15,8 +15,34 @@ body {
   justify-content: right;
   padding: 0px 10px 10px 0;
   border: 2px solid;
+  margin: 10px;
+  font-family: "Segoe UI";
 }
 
 h5 {
   margin: 10px 0 5px 10px;
+}
+
+h2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: burlywood;
+}
+
+#container {
+  font-family: "Segoe UI";
+  margin: 10px;
+  border: 3px dotted;
+  padding: 10px;
+}
+
+#message {
+  font-family: "Segoe UI";
+  margin: 10px;
+  font-weight: bold;
+}
+
+#get_result {
+  margin: 15px 0 0 5px;
 }
